@@ -1,31 +1,14 @@
-<%= form_with(model: user, local: true) do |form| %>
-  <% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<%= simple_form_for(@user) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :admission_date, as: :string, input_html: {class: "datepicker", value: (f.object.admission_date.present? ? f.object.admission_date.strftime('%d/%m/%Y') : Date.today.strftime('%d/%m/%Y'))} %>
+    <%= f.input :resignation_date, as: :string, input_html: {class: "datepicker", value: (f.object.resignation_date.strftime('%d/%m/%Y') if f.object.resignation_date.present? )} %>
+    <%= f.association :roles %>
+  </div>
 
-      <ul>
-      <% user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: "form-control" %>
+  <div class="form-actions">
+    <%= f.button :submit %>
   </div>
-  <div class="form-group">
-    <%= form.label :admission_date %>
-    <%= form.date_field :admission_date, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= form.label :resignation_date %>
-    <%= form.date_field :resignation_date, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= form.label :name %>
-    <%= form.select(:role_ids, Role.all.collect {|u| [u.name, u.id]}, {}, {prompt: 'Select', multiple: true, class: "form-control"} ) %>
-  </div>
-  <%= form.submit class: "btn btn-primary" %>
 <% end %>

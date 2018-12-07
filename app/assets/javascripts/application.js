@@ -14,6 +14,18 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require rails-ujs
+//= require bootstrap-datepicker
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+$(function () {
+  $('.datepicker').datepicker({
+    autoclose: true,
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    changeMonth: true,
+    changeYear: true,
+    orientation: "bottom"
+  });
+});

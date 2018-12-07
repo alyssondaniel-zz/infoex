@@ -7,7 +7,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-   validates :name, :admission_date, presence: true
+  validates :name, :admission_date, presence: true
 
   private
     def assign_default_role
