@@ -1,4 +1,6 @@
 class VehiclesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :authorize_vehicle
   before_action :set_vehicle, only: [:show, :edit, :update, :destroy]
 
   # GET /vehicles
@@ -70,5 +72,9 @@ class VehiclesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def vehicle_params
       params.require(:vehicle).permit(:license_plate, :model, :year)
+    end
+
+    def authorize_vehicle
+      authorize Vehicle
     end
 end
