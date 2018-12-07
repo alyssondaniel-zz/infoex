@@ -2,6 +2,18 @@
   <strong>Name:</strong>
   <%= @user.name %>
 </p>
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+<p>
+  <strong>Admission date:</strong>
+  <%= l @user.admission_date, format: :long %>
+</p>
+<p>
+  <strong>Resignation date:</strong>
+  <%= l @user.resignation_date, format: :long if @user.resignation_date.present? %>
+</p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
