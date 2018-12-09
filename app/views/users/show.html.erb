@@ -8,7 +8,7 @@
 </p>
 <p>
   <strong>Admission date:</strong>
-  <%= l @user.admission_date, format: :long %>
+  <%= l(@user.admission_date, format: :long) if @user.admission_date.present? %>
 </p>
 <p>
   <strong>Resignation date:</strong>

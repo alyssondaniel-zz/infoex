@@ -1,33 +1,37 @@
 class VehiclesController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_vehicle
+  after_action :verify_authorized
   before_action :set_vehicle, only: [:show, :edit, :update, :destroy]
 
   # GET /vehicles
   # GET /vehicles.json
   def index
-    @vehicles = Vehicle.all
+    @vehicles = policy_scope(Vehicle.all)
+    authorize Vehicle
   end
 
   # GET /vehicles/1
   # GET /vehicles/1.json
   def show
+    authorize @vehicle
   end
 
   # GET /vehicles/new
   def new
     @vehicle = Vehicle.new
+    authorize Vehicle
   end
 
   # GET /vehicles/1/edit
   def edit
+    authorize @vehicle
   end
 
   # POST /vehicles
   # POST /vehicles.json
   def create
     @vehicle = Vehicle.new(vehicle_params)
-
+    authorize @vehicle
     respond_to do |format|
       if @vehicle.save
         format.html { redirect_to @vehicle, notice: 'Vehicle was successfully created.' }
@@ -42,6 +46,7 @@ class VehiclesController < ApplicationController
   # PATCH/PUT /vehicles/1
   # PATCH/PUT /vehicles/1.json
   def update
+    authorize @vehicle
     respond_to do |format|
       if @vehicle.update(vehicle_params)
         format.html { redirect_to @vehicle, notice: 'Vehicle was successfully updated.' }
@@ -56,6 +61,7 @@ class VehiclesController < ApplicationController
   # DELETE /vehicles/1
   # DELETE /vehicles/1.json
   def destroy
+    authorize @vehicle
     @vehicle.destroy
     respond_to do |format|
       format.html { redirect_to vehicles_url, notice: 'Vehicle was successfully destroyed.' }
@@ -72,9 +78,5 @@ class VehiclesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def vehicle_params
       params.require(:vehicle).permit(:license_plate, :model, :year)
-    end
-
-    def authorize_vehicle
-      authorize Vehicle
     end
 end
