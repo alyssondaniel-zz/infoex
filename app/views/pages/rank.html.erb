@@ -1,0 +1,30 @@
+<h1>Rank, <%= Date.today.strftime('%B %Y') %></h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Vehicle</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Liter</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if @fuel_supplies.each do |fuel_supply| %>
+      <tr>
+        <td><%= fuel_supply.license_plate %></td>
+        <td><%= fuel_supply.quantity %></td>
+        <td><%= number_to_currency fuel_supply.price %></td>
+        <td><%= number_to_currency fuel_supply.liter %></td>
+      </tr>
+    <% end.empty? %>
+      <tr>
+        <td colspan="4" class="text-center">No results found!</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Fuel Supply', new_fuel_supply_path %>
