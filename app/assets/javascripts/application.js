@@ -26,6 +26,6 @@ $(function () {
     selectOtherMonths: true,
     changeMonth: true,
     changeYear: true,
-    orientation: "bottom"
+    format: 'dd/mm/yyyy'
   });
 });

@@ -1,0 +1,47 @@
+<h1>Fuel Supplies</h1>
+<%= simple_form_for :search,  url: fuel_supplies_path , method: :get do |f| %>
+<div class="row">
+  <div class="col-4">
+    <%= f.input :date_init, as: :string, input_html: {class: "datepicker", autocomplete: 'off'} %>
+  </div>
+  <div class="col-4">
+    <%= f.input :date_end, as: :string, input_html: {class: "datepicker", autocomplete: 'off'} %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-4">
+    <%= f.button :submit, "Search" %>
+  </div>
+</div>
+<% end %>
+<p></p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date supply</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Vehicle</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @fuel_supplies.each do |fuel_supply| %>
+      <tr>
+        <td><%= fuel_supply.date_supply %></td>
+        <td><%= fuel_supply.quantity %></td>
+        <td><%= number_to_currency fuel_supply.price %></td>
+        <td><%= link_to fuel_supply.vehicle.license_plate, vehicle_path(fuel_supply.vehicle) %></td>
+        <td><%= link_to 'Show', fuel_supply %></td>
+        <td><%= link_to 'Edit', edit_fuel_supply_path(fuel_supply) %></td>
+        <td><%= link_to 'Destroy', fuel_supply, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Fuel Supply', new_fuel_supply_path %> ||
+<%= link_to 'Report', report_fuel_supplies_path %>

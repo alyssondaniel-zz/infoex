@@ -1,0 +1,55 @@
+<h1>Fuel Supplies</h1>
+<%= simple_form_for :search,  url: report_fuel_supplies_path , method: :get do |f| %>
+<div class="row">
+  <div class="col-4">
+    <%= f.input :date_init, as: :string, input_html: {class: "datepicker", autocomplete: 'off'} %>
+  </div>
+  <div class="col-4">
+    <%= f.input :date_end, as: :string, input_html: {class: "datepicker", autocomplete: 'off'} %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-4">
+    <%= f.button :submit, "Search" %>
+  </div>
+</div>
+<% end %>
+<p></p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Vehicle</th>
+      <th>Quantity average</th>
+      <th>Price average</th>
+      <th>Liter average</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% total_quantity = 0; total_price = 0 %>
+    <% if @fuel_supplies.each do |fuel_supply| %>
+      <% total_quantity += fuel_supply.quantity %>
+      <% total_price += fuel_supply.price %>
+      <tr>
+        <td><%= fuel_supply.license_plate %></td>
+        <td><%= fuel_supply.quantity %></td>
+        <td><%= number_to_currency fuel_supply.price %></td>
+        <td><%= number_to_currency fuel_supply.liter %></td>
+      </tr>
+    <% end.empty? %>
+      <tr>
+        <td colspan="4" class="text-center">No results found!</td>
+      </tr>
+    <% end %>
+    <tr>
+      <td><strong>Total</strong></td>
+      <td><strong><%= total_quantity %></strong></td>
+      <td><strong><%= number_to_currency total_price %></strong></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Fuel Supply', new_fuel_supply_path %>

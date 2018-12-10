@@ -1,0 +1,16 @@
+
+<%= simple_form_for(@fuel_supply) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :date_supply, as: :string, input_html: {class: "datepicker", value: (f.object.date_supply.present? ? f.object.date_supply.strftime('%d/%m/%Y') : Date.today.strftime('%d/%m/%Y'))} %>
+    <%= f.input :quantity %>
+    <%= f.input :price %>
+    <%= f.association :vehicle, label_method: :license_plate, value_method: :id, prompt: "Choose a Vehicle" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

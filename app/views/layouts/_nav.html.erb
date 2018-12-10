@@ -15,6 +15,9 @@
       <li class="nav-item <%= "active" if current_page?(vehicles_path)  %>">
         <%= link_to "Vehicles", vehicles_path, class: "nav-link" %>
       </li>
+      <li class="nav-item <%= "active" if current_page?(fuel_supplies_path)  %>">
+        <%= link_to "Fuel supply", fuel_supplies_path, class: "nav-link" %>
+      </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
 			<% if user_signed_in? %>

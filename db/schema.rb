@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_07_211523) do
+ActiveRecord::Schema.define(version: 2018_12_09_232836) do
+
+  create_table "fuel_supplies", force: :cascade do |t|
+    t.date "date_supply"
+    t.integer "quantity"
+    t.decimal "price"
+    t.integer "vehicle_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vehicle_id"], name: "index_fuel_supplies_on_vehicle_id"
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
